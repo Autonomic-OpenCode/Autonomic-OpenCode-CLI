@@ -1,9 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet-postgres
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
 {
-	"name": ".NET (C#), Node.js (TypeScript) & PostgreSQL",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
+	"name": ".NET (C#) & Node.js (TypeScript)",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
@@ -18,8 +19,7 @@
 
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"ms-dotnettools.csharp",
-				"ckolkman.vscode-postgres"
+				"ms-dotnettools.csharp"
 			]
 		}
 	},
@@ -32,8 +32,7 @@
 			}
 	},
 
-	// postCreateCommand.sh parameters: $1=postgres password, $2=database name
-	"postCreateCommand": "bash .devcontainer/postgres/postCreateCommand.sh 'P@ssw0rd' 'ApplicationDB' && npm install -g @upstash/context7-mcp@latest",
+	"postCreateCommand": "npm install -g @upstash/context7-mcp@latest",
 	"postStartCommand": "sh -c 'pgrep -f \"context7-mcp --transport http --port 7400\" >/dev/null || nohup context7-mcp --transport http --port 7400 > /tmp/context7.log 2>&1 &'",
 	"features": {
 		"ghcr.io/jsburckhardt/devcontainer-features/opencode:1": {}
