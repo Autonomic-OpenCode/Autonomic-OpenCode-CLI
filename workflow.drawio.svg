@@ -1,0 +1,115 @@
+<mxfile host="65bd71144e">
+    <diagram id="w6V-QKlKrlujvERwP1H4" name="Page-1">
+        <mxGraphModel dx="2386" dy="1327" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="34" style="edgeStyle=none;html=1;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="2" target="33">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="Project Manager&lt;br&gt;Coordinates the project by &lt;br&gt;delegating agents" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="90" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="Requirements&lt;br&gt;Engineer&lt;div&gt;Analyses and creates&lt;/div&gt;&lt;div&gt;backlog&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="260" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="OUTCOME" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="6" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="6" target="11">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Planning Phase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="260" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Product&lt;br&gt;Manager&lt;br&gt;Defines acceptance&lt;br&gt;criteria and user stories" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="260" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="11" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="OUTCOME" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="11" target="36">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Design Phase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="430" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Backlog" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="260" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="14" target="16">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="OUTCOME" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="14" target="38">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Implementation Phase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="604.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="OUTCOME" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="15" target="42">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="QA Phase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="960" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="16" target="15">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="OUTCOME" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="16" target="40">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Deployment Phase" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="780" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Designer&lt;br&gt;Expert for UI/UX" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="430" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Architect&lt;br&gt;Designs Systems" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="430" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Database Engineer&lt;br&gt;Handles&lt;br&gt;Database Structures" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="710" y="430" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="System Engineer&lt;br&gt;Infrastructure and Ops&lt;div&gt;specialist&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="605" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Developer&lt;br&gt;Coding Expert" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="605" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Tester&lt;div&gt;Tests the Application&lt;br&gt;(Whitebox Tests)&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="960" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="DevOps Engineer&lt;br&gt;CI/CD and Deployment&lt;br&gt;Expert" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="780" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="QA Engineer&lt;div&gt;Test Planning&lt;/div&gt;&lt;div&gt;and Quality Gating&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="780" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Security Engineer&lt;div&gt;Security Audits and&lt;/div&gt;&lt;div&gt;Assessment&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="710" y="780" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="33" target="6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="Start" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="294" y="90" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="Agent Tasks" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="430" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="Code" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="605" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" value="IaC Setup" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="780" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="Backlog" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+                    <mxGeometry x="70" y="960" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="User&lt;div&gt;&quot;Tests&quot;&lt;/div&gt;&lt;div&gt;the app with zero &lt;br&gt;/ only docu&lt;/div&gt;&lt;div&gt;knowledge&lt;br&gt;(Blackbox Tests)&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="600" y="960" width="30" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
