@@ -13,14 +13,5 @@
       "command": ["npx", "-y", "@upstash/context7-mcp"],
       "enabled": true
     }
-    // Add more MCP servers as needed:
-    // "filesystem": { "type": "local", "command": ["..."], "enabled": true }
-    // "database": { "type": "local", "command": ["..."], "enabled": true }
-  },
-  
-  // Instructions - Load agent definitions and behavioral patterns
-  "instructions": [
-    "AGENTS.md",
-    ".opencode/agent/*.md"
-  ]
+  }
 }
