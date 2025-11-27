@@ -40,7 +40,7 @@
 
 	// Mount entire .local directory from host to preserve OpenCode config
 	"mounts": [
-		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.local,target=/home/vscode/.local,type=bind,consistency=cached"
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.autonomic.opencode,target=/home/vscode/.local,type=bind,consistency=cached"
 	]
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
