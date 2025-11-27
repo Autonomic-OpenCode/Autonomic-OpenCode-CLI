@@ -40,3 +40,12 @@ Before starting any task, you **MUST**:
 - **Task Management**: `.local/agenttasks/`, `.local/stories/` (Git-ignored).
 - **Memory**: `memory/` (Committed knowledge base).
 - **Configuration**: `.opencode/` (Agent & Plugin definitions).
+
+## 5. Agent Phases & Gating
+- **Planning Phase**: `requirements-engineer.md` — elicits and structures requirements; creates Stories/AgentTasks. MUST stop and request user feedback before proceeding to Design.
+- **Design Phase**: `software-architect.md` — designs architecture and refines AgentTasks. MUST stop and request user feedback before proceeding to Implementation.
+- **Implementation Phase**: `developer.md` — implements code and tests per tasks and architecture. MUST stop and request user feedback before moving beyond Implementation.
+- **Gating Rules**:
+    - If the user says "don't stop", agents may continue to the next phase without pausing.
+    - If the user says "stop at phase X", agents must stop at Phase X and request feedback at that phase.
+    - Agents must record user approval/decision in the relevant AgentTask/Story/ADR/notes before transitioning.
