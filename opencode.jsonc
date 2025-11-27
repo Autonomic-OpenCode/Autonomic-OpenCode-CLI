@@ -1,6 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
+  "instructions": [
+    "instructions/ADR_SCHEMA.md",
+    "instructions/AGENTS.md",
+    "instructions/AGENT_SCHEMA.md",
+    "instructions/AGENT_TASK_SCHEMA.md",
+    "instructions/BUG_REPORT_SCHEMA.md",
+    "instructions/COMMUNICATION_STANDARDS.md",
+    "instructions/QUALITY_STANDARDS.md",
+    "instructions/STORY_SCHEMA.md"
+  ],
+
   "keybinds": {
     "session_child_cycle":"shift+ctrl+right",
     "session_child_cycle_reverse": "shift+ctrl+left"
