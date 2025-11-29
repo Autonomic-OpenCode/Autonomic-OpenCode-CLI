@@ -1,11 +1,99 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
+  // Model Configuration
+  "model": "anthropic/claude-sonnet-4-20250514",
+  "small_model": "anthropic/claude-haiku-4-5",
+
+  // Theme
+  "theme": "opencode",
+
+  // Auto-update
+  "autoupdate": true,
+
+  // Sharing settings
+  "share": "manual",
+
+  // Tool permissions (customize as needed)
+  "tools": {
+    "bash": true,
+    "write": true,
+    "edit": true,
+    "read": true
+  },
+
+  // Permission settings for sensitive operations
+  "permission": {
+    "bash": "ask",
+    "edit": "allow",
+    "write": "ask"
+  },
+
+  // TUI Configuration
+  "tui": {
+    "scroll_speed": 3,
+    "scroll_acceleration": {
+      "enabled": true
+    }
+  },
+
+  // Keybinds
   "keybinds": {
-    "session_child_cycle":"shift+ctrl+right",
+    "session_child_cycle": "shift+ctrl+right",
     "session_child_cycle_reverse": "shift+ctrl+left"
   },
-  
+
+  // Custom Commands for this multi-agent system
+  "command": {
+    "agents": {
+      "template": "List all available agents and their roles in the multi-agent system",
+      "description": "Show agent directory",
+      "agent": "project-manager"
+    },
+    "generate-agent": {
+      "template": "Generate a new agent definition for role: $ARGUMENTS. Follow the system specifications in .opencode/system/",
+      "description": "Generate new agent definition",
+      "agent": "agent-generator"
+    },
+    "plan-project": {
+      "template": "Create a comprehensive project plan with tasks, phases, and agent assignments for: $ARGUMENTS",
+      "description": "Create multi-agent project plan",
+      "agent": "project-manager"
+    },
+    "review-system": {
+      "template": "Review the current multi-agent system architecture and suggest improvements",
+      "description": "System architecture review",
+      "agent": "architect"
+    },
+    "test-agents": {
+      "template": "Run comprehensive tests on the agent system to validate functionality",
+      "description": "Test agent system",
+      "agent": "qa-engineer"
+    }
+  },
+
+  // Agent configurations
+  "agent": {
+    "project-manager": {
+      "description": "Coordinates multi-agent projects by delegating tasks and tracking progress",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "tools": {
+        "bash": true,
+        "write": true,
+        "edit": true
+      }
+    },
+    "agent-generator": {
+      "description": "Generates and maintains agent definition files",
+      "model": "anthropic/claude-sonnet-4-20250514",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": false
+      }
+    }
+  },
+
   // MCP Servers Configuration
   "mcp": {
     "context7": {
@@ -17,10 +105,18 @@
     // "filesystem": { "type": "local", "command": ["..."], "enabled": true }
     // "database": { "type": "local", "command": ["..."], "enabled": true }
   },
+
+  // Formatters (if you want code formatting)
+  "formatter": {
+    "prettier": {
+      "disabled": false
+    }
+  },
   
   // Instructions - Load agent definitions and behavioral patterns
   "instructions": [
     "AGENTS.md",
-    ".opencode/agent/*.md"
+    ".opencode/agent/*.md",
+    ".opencode/system/*.md"
   ]
 }
