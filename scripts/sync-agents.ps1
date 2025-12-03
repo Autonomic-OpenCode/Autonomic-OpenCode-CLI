@@ -53,25 +53,24 @@ try {
 
     # 4. Sync Files
     
-    # 4a. Sync Root Files/Folders (instructions, opencode.jsonc)
-    $RootItems = @("instructions", "opencode.jsonc")
-    foreach ($item in $RootItems) {
-        $SourcePath = Join-Path $ExtractedRoot $item
-        $DestPath = Join-Path $TargetDir $item
-
-        if (Test-Path $SourcePath) {
-            Write-Host "   [Update] Updating $item..." -ForegroundColor Gray
-            if ((Get-Item $SourcePath).PSIsContainer) {
-                # Directory
-                robocopy $SourcePath $DestPath /E /XO /NFL /NDL /NJH /NJS | Out-Null
-            } else {
-                # File
-                Copy-Item -Path $SourcePath -Destination $DestPath -Force
-            }
-        }
+    # 4a. Sync instructions folder (complete reset - deletes old files)
+    $SourceInstructions = Join-Path $ExtractedRoot "instructions"
+    $DestInstructions = Join-Path $TargetDir "instructions"
+    if (Test-Path $SourceInstructions) {
+        Write-Host "   [Reset] Resetting instructions folder..." -ForegroundColor Gray
+        # Use /MIR to mirror the source, deleting files that no longer exist
+        robocopy $SourceInstructions $DestInstructions /MIR /NFL /NDL /NJH /NJS | Out-Null
     }
 
-    # 4b. Sync .opencode folder
+    # 4b. Sync opencode.jsonc file
+    $SourceConfig = Join-Path $ExtractedRoot "opencode.jsonc"
+    $DestConfig = Join-Path $TargetDir "opencode.jsonc"
+    if (Test-Path $SourceConfig) {
+        Write-Host "   [Update] Updating opencode.jsonc..." -ForegroundColor Gray
+        Copy-Item -Path $SourceConfig -Destination $DestConfig -Force
+    }
+
+    # 4c. Sync .opencode folder
     # If Global: Copy CONTENTS of .opencode to Target (Target IS the .opencode equivalent)
     # If Project: Copy .opencode FOLDER to Target
     
