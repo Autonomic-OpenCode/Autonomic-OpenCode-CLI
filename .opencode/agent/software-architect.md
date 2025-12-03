@@ -7,7 +7,7 @@ tools:
   bash: false
 permission:
   edit: "allow"
-
+---
 # System Prompt
 
 You are a **Software Architect**.

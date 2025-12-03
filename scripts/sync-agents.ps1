@@ -19,32 +19,35 @@ $ZipPath = Join-Path $TempDir "repo.zip"
 if ($env:REMOTE_CONTAINERS -eq "true" -or $env:CODESPACES -eq "true") {
     $TargetDir = Get-Location
     $IsGlobal = $false
-    Write-Host "🐳 DevContainer detected. Syncing to PROJECT root: $TargetDir" -ForegroundColor Cyan
+    Write-Host "[Container] DevContainer detected. Syncing to PROJECT root: $TargetDir" -ForegroundColor Cyan
 } else {
     # Global path: ~/.config/opencode (matches Linux/Mac structure)
     $TargetDir = Join-Path $env:USERPROFILE ".config\opencode"
     $IsGlobal = $true
-    Write-Host "💻 Host environment detected. Syncing to GLOBAL config: $TargetDir" -ForegroundColor Cyan
+    Write-Host "[Host] Host environment detected. Syncing to GLOBAL config: $TargetDir" -ForegroundColor Cyan
     if (-not (Test-Path $TargetDir)) { New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null }
 }
 
 # GitHub Archive URL
 $DownloadUrl = "https://github.com/$RepoOwner/$RepoName/archive/refs/heads/$Branch.zip"
 
-Write-Host "🤖 Starting Agent Synchronization..." -ForegroundColor Cyan
+Write-Host "[Sync] Starting Agent Synchronization..." -ForegroundColor Cyan
 
 try {
     # 1. Create Temp Dir
     New-Item -ItemType Directory -Force -Path $TempDir | Out-Null
 
     # 2. Download ZIP (No Git required)
-    Write-Host "   📥 Downloading repository from GitHub (ZIP)..." -ForegroundColor Gray
+    Write-Host "   [Download] Downloading repository from GitHub..." -ForegroundColor Gray
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    Invoke-WebRequest -Uri $DownloadUrl -OutFile $ZipPath
+    # Use -UseBasicParsing to avoid IE engine dependency and handle redirects properly
+    Invoke-WebRequest -Uri $DownloadUrl -OutFile $ZipPath -UseBasicParsing
 
     # 3. Extract ZIP
-    Write-Host "   📦 Extracting files..." -ForegroundColor Gray
-    Expand-Archive -Path $ZipPath -DestinationPath $TempDir -Force
+    Write-Host "   [Extract] Extracting files..." -ForegroundColor Gray
+    # Use Add-Type for .NET extraction as fallback-safe method
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    [System.IO.Compression.ZipFile]::ExtractToDirectory($ZipPath, $TempDir)
 
     $ExtractedRoot = Join-Path $TempDir "$RepoName-$Branch"
 
@@ -57,11 +60,10 @@ try {
         $DestPath = Join-Path $TargetDir $item
 
         if (Test-Path $SourcePath) {
-            Write-Host "   🔄 Updating $item..." -ForegroundColor Gray
+            Write-Host "   [Update] Updating $item..." -ForegroundColor Gray
             if ((Get-Item $SourcePath).PSIsContainer) {
                 # Directory
-                $robocopyArgs = @($SourcePath, $DestPath, "/E", "/XO", "/NFL", "/NDL")
-                & robocopy $robocopyArgs | Out-Null
+                robocopy $SourcePath $DestPath /E /XO /NFL /NDL /NJH /NJS | Out-Null
             } else {
                 # File
                 Copy-Item -Path $SourcePath -Destination $DestPath -Force
@@ -78,24 +80,22 @@ try {
     if ($IsGlobal) {
         # Global: .opencode/agent -> ~/.config/opencode/agent
         if (Test-Path $SourceOpencode) {
-            Write-Host "   🔄 Updating global configuration..." -ForegroundColor Gray
-            $robocopyArgs = @($SourceOpencode, $TargetDir, "/E", "/XO", "/NFL", "/NDL")
-            & robocopy $robocopyArgs | Out-Null
+            Write-Host "   [Update] Updating global configuration..." -ForegroundColor Gray
+            robocopy $SourceOpencode $TargetDir /E /XO /NFL /NDL /NJH /NJS | Out-Null
         }
     } else {
         # Project: .opencode -> ./.opencode
         $DestOpencode = Join-Path $TargetDir ".opencode"
         if (Test-Path $SourceOpencode) {
-            Write-Host "   🔄 Updating .opencode folder..." -ForegroundColor Gray
-            $robocopyArgs = @($SourceOpencode, $DestOpencode, "/E", "/XO", "/NFL", "/NDL")
-            & robocopy $robocopyArgs | Out-Null
+            Write-Host "   [Update] Updating .opencode folder..." -ForegroundColor Gray
+            robocopy $SourceOpencode $DestOpencode /E /XO /NFL /NDL /NJH /NJS | Out-Null
         }
     }
 
-    Write-Host "✅ Synchronization successful! Your agents are up to date." -ForegroundColor Green
+    Write-Host "[OK] Synchronization successful! Your agents are up to date." -ForegroundColor Green
 }
 catch {
-    Write-Error "❌ Error: $_"
+    Write-Error "[Error] $_"
 }
 finally {
     # 5. Cleanup
