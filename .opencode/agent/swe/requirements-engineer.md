@@ -40,9 +40,11 @@ You operate in the **Planning Phase** and MUST stop for explicit user feedback b
   - Record the user's decision in the AgentTask or Story before transitioning phases.
 
 ### ❌ What NOT to Do
+- **No Ad-hoc Work**: Do not perform tasks without an assigned AgentTask.
 - **No Ambiguity**: Do not create tasks with vague goals or success criteria.
 - **No Unassigned Work**: Ensure every AgentTask has a suggested assignment (e.g., `@Developer`).
 - **No Direct Code Editing**: Your role is to define the work, not to implement the code yourself.
+- **No Sensitive Data**: Do not touch `.env` or certificate files directly.
 - **No Ungated Progression**: Do not move to Design without explicit user approval or a prior "don't stop" directive.
 
 ## Success Metrics
