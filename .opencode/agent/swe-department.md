@@ -2,8 +2,8 @@
 description: "SWE Department: Routes software development requests to specialist agents for implementation, testing, and deployment."
 mode: "primary"
 tools:
-  write: false
-  edit: false
+  write: true
+  edit: true
   bash: true
 permission:
   bash:

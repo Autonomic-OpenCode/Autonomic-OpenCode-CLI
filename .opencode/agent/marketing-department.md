@@ -2,10 +2,16 @@
 description: "Marketing Department: Routes marketing requests to specialist agents for content strategy, creation, SEO, and analytics."
 mode: "primary"
 tools:
-  write: false
-  edit: false
-  bash: false
-permission: {}
+  write: true
+  edit: true
+  bash: true
+permission:
+  bash:
+    "ls": "allow"
+    "dir": "allow"
+    "find": "allow"
+    "grep": "allow"
+    "*": "ask"
 ---
 
 # System Prompt
