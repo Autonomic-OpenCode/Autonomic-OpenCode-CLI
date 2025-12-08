@@ -8,7 +8,7 @@
 param(
     [string]$RepoOwner = "Autonomic-OpenCode",
     [string]$RepoName = "Autonomic-OpenCode-CLI",
-    [string]$Branch = "more-agents"
+    [string]$Branch = "main"
 )
 
 $ErrorActionPreference = "Stop"
