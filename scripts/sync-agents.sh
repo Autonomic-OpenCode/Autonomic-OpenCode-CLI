@@ -6,7 +6,7 @@
 
 REPO_OWNER="Autonomic-OpenCode"
 REPO_NAME="Autonomic-OpenCode-CLI"
-BRANCH="main"
+BRANCH="more-agents"
 
 # GitHub Tarball URL
 DOWNLOAD_URL="https://github.com/$REPO_OWNER/$REPO_NAME/archive/refs/heads/$BRANCH.tar.gz"
