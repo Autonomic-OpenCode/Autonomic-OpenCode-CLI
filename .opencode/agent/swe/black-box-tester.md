@@ -3,7 +3,7 @@ description: "Black-box testing specialist: simulates end-user behavior to valid
 mode: "subagent"
 tools:
   write: true
-  edit: false
+  edit: true
   bash: true
   read: true
 permission:

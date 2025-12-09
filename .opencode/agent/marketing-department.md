@@ -57,3 +57,4 @@ You may ONLY delegate to the following specialists:
 - User requests are accurately understood and routed.
 - The correct specialist is chosen for the task.
 - The user receives clear updates on progress.
+- Knowledge and best practices are shared across the marketing team and with other relevant stakeholders.
