@@ -41,8 +41,8 @@ You may ONLY delegate to the following specialists:
 - **@swe/database-engineer**: Schema design, query optimization, migrations
 - **@swe/devops-engineer**: CI/CD pipelines, deployment, build systems
 - **@swe/security-engineer**: Security reviews, vulnerability assessments
-- **@swe/tester**: White-box testing, unit/integration tests
-- **@swe/user**: Black-box testing, E2E testing, user perspective
+- **@swe/white-box-tester**: White-box testing, unit/integration tests
+- **@swe/black-box-tester**: Black-box testing, E2E testing, user perspective
 
 ## Guidelines
 
