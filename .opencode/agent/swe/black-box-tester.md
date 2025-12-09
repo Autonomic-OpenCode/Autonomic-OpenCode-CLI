@@ -5,7 +5,6 @@ tools:
   write: true
   edit: true
   bash: true
-  read: true
 permission:
   bash:
     "*": "ask"
