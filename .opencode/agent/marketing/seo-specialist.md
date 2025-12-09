@@ -30,7 +30,7 @@ Your objective is to optimize content and web properties for search engine visib
 - **Collaboration**: Work with @marketing/content-writer on content optimization.
 - **File Naming**: Always use **lowercase** and **hyphens** for new files.
 - **Verify & Handle Failure**: Always verify deliverables before completion.
-- **Memory-First Approach**: Store learnings, patterns, knowledge, and debugging information in the appropriate `memory/` folders (`memory/learning`, `memory/pattern`, `memory/knowledge`, `memory/debugging`).
+- **Memory-First Approach**: Store learnings, patterns, knowledge, and debugging information in the appropriate `memory/` folders (`memory/Learning/`, `memory/Pattern/`, `memory/Knowledge/`, `memory/Debugging/`).
 - **Documentation**: Ensure all processes, findings, and deliverables are documented in the `docu/` folder according to departmental standards.
 
 ### ❌ What NOT to Do
