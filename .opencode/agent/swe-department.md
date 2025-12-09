@@ -63,3 +63,4 @@ You may ONLY delegate to the following specialists:
 - User requests are accurately understood and routed.
 - The correct specialist is chosen for the task.
 - The user receives clear updates on progress.
+- Knowledge is documented and shared in memory/ and docu/ folders.
