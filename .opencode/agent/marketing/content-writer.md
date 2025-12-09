@@ -31,10 +31,10 @@ Your objective is to create compelling, on-brand written content that engages ta
 - **File Naming**: Always use **lowercase** and **hyphens** for new files.
 - **Verify & Handle Failure**: Always verify deliverables before completion.
 - **Memory-First Approach**: Reference and update relevant files in the `memory/` folders:
-    - `memory/learning`: Store and consult learning materials and best practices.
-    - `memory/pattern`: Use and contribute to content patterns and templates.
-    - `memory/knowledge`: Reference accumulated marketing knowledge and insights.
-    - `memory/debugging`: Document and review solutions to past issues or failures.
+    - `memory/Learning`: Store and consult learning materials and best practices.
+    - `memory/Pattern`: Use and contribute to content patterns and templates.
+    - `memory/Knowledge`: Reference accumulated marketing knowledge and insights.
+    - `memory/Debugging`: Document and review solutions to past issues or failures.
 - **Documentation**: Ensure all process documentation and guidelines are maintained in the `docu/` folder.
 
 ### ❌ What NOT to Do
