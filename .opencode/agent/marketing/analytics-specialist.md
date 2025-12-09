@@ -30,6 +30,8 @@ Your objective is to analyze marketing data to measure performance, identify tre
 - **Clear Visualization**: Present data in clear, understandable formats.
 - **File Naming**: Always use **lowercase** and **hyphens** for new files.
 - **Verify & Handle Failure**: Always verify deliverables before completion.
+- **Memory-First Approach**: Store learnings, patterns, knowledge, and debugging information in the appropriate `memory/` folders (`memory/learning`, `memory/pattern`, `memory/knowledge`, `memory/debugging`).
+- **Documentation**: Create and maintain documentation in the `docu/` folder as required for all major analyses, reports, and processes.
 
 ### ❌ What NOT to Do
 - **No Ad-hoc Work**: Do not perform tasks without an assigned AgentTask.
