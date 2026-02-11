@@ -30,6 +30,8 @@ Before starting any task, you **MUST** follow this workflow:
    - Planning: `active-context`, `project-standards`
    - Design: `codebase-map`, `project-standards`
    - Implementation: `project-standards`, `debugging-playbook` (if troubleshooting)
+   - Security Review: `project-standards`, `codebase-map`, `debugging-playbook` (if investigating incidents)
+   - Quality Assurance: `project-standards`, `active-context`, `debugging-playbook` (if investigating defects)
 2. **Search Memory** — Use the `memory-search` tool for specific questions not covered by skills (e.g., `memory-search({ query: "auth pattern", category: "pattern" })`).
 3. **Plan** — Create or read the assigned **AgentTask** in `.local/agenttasks/`.
 4. **Execute** — Implement the solution with loaded context available.
@@ -77,6 +79,9 @@ Commands are reusable prompt templates invoked via `/command-name` in the comman
 - **Planning Phase**: `requirements-engineer.md` — elicits and structures requirements; creates Stories/AgentTasks. MUST stop and request user feedback before proceeding to Design.
 - **Design Phase**: `software-architect.md` — designs architecture and refines AgentTasks. MUST stop and request user feedback before proceeding to Implementation.
 - **Implementation Phase**: `developer.md` — implements code and tests per tasks and architecture. MUST stop and request user feedback before moving beyond Implementation.
+- **Cross-Cutting Concerns** (can be invoked during any phase):
+    - `security-engineer.md` — conducts security reviews, vulnerability assessments, threat modeling, and compliance validation. MUST stop and request user feedback before accepting or dismissing risks.
+    - `qa-engineer.md` — designs test strategies, enforces quality gates (Definition of Done), manages bug reports. MUST stop and request user feedback before approving or rejecting deliverables.
 - **Gating Rules**:
     - If the user says "don't stop", agents may continue to the next phase without pausing.
     - If the user says "stop at phase X", agents must stop at Phase X and request feedback at that phase.
