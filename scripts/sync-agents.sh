@@ -78,7 +78,7 @@ SOURCE_OPENCODE="$EXTRACTED_ROOT/.opencode"
 
 if [ "$IS_GLOBAL" = true ]; then
     # Global: Copy CONTENTS of .opencode to ~/.config/opencode
-    # e.g. .opencode/agent -> ~/.config/opencode/agent
+    # e.g. .opencode/agents -> ~/.config/opencode/agents
     if [ -d "$SOURCE_OPENCODE" ]; then
         echo "   🔄 Updating global configuration..."
         if command -v rsync &> /dev/null; then
@@ -92,7 +92,17 @@ else
     sync_item "$SOURCE_OPENCODE" "$TARGET_DIR/.opencode"
 fi
 
-# 6. Cleanup
+# 6. Create memory/ directory structure (if it doesn't exist)
+# Agents reference these directories for knowledge storage and retrieval.
+MEMORY_BASE="$TARGET_DIR/memory"
+for subdir in Knowledge Pattern Learning Debugging; do
+    if [ ! -d "$MEMORY_BASE/$subdir" ]; then
+        mkdir -p "$MEMORY_BASE/$subdir"
+        echo "   📁 Created memory/$subdir/"
+    fi
+done
+
+# 7. Cleanup
 rm -rf $TEMP_DIR
 
 echo "✅ Done!"

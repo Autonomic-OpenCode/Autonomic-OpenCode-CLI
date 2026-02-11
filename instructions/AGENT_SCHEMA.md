@@ -1,6 +1,6 @@
 # OpenCode Agent Schema
 
-All agents in this project must be defined as Markdown files (e.g., `.opencode/agent/my-agent.md`) following this schema.
+All agents in this project must be defined as Markdown files (e.g., `.opencode/agents/my-agent.md`) following this schema.
 
 ## File Structure
 

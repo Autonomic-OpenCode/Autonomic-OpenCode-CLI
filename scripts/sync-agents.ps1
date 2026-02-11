@@ -77,7 +77,7 @@ try {
     $SourceOpencode = Join-Path $ExtractedRoot ".opencode"
     
     if ($IsGlobal) {
-        # Global: .opencode/agent -> ~/.config/opencode/agent
+        # Global: .opencode/agents -> ~/.config/opencode/agents
         if (Test-Path $SourceOpencode) {
             Write-Host "   [Update] Updating global configuration..." -ForegroundColor Gray
             robocopy $SourceOpencode $TargetDir /E /XO /NFL /NDL /NJH /NJS | Out-Null
@@ -88,6 +88,17 @@ try {
         if (Test-Path $SourceOpencode) {
             Write-Host "   [Update] Updating .opencode folder..." -ForegroundColor Gray
             robocopy $SourceOpencode $DestOpencode /E /XO /NFL /NDL /NJH /NJS | Out-Null
+        }
+    }
+
+    # 4d. Create memory/ directory structure (if it doesn't exist)
+    # Agents reference these directories for knowledge storage and retrieval.
+    $MemoryBase = Join-Path $TargetDir "memory"
+    foreach ($subdir in @("Knowledge", "Pattern", "Learning", "Debugging")) {
+        $MemorySubdir = Join-Path $MemoryBase $subdir
+        if (-not (Test-Path $MemorySubdir)) {
+            New-Item -ItemType Directory -Path $MemorySubdir -Force | Out-Null
+            Write-Host "   [Create] Created memory/$subdir/" -ForegroundColor Gray
         }
     }
 

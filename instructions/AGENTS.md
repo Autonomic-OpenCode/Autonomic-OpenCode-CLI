@@ -22,26 +22,58 @@ You are required to follow these specific standards for your operations:
 - **Communication**: Adhere to `COMMUNICATION_STANDARDS.md` (No filler, specific delegation formats).
 - **Quality & Verification**: Adhere to `QUALITY_STANDARDS.md` (DoD, Testing, Failure Protocols).
 
-## 3. The "Memory-First" Workflow
-Before starting any task, you **MUST**:
-1.  **Search Memory**: Check `memory/` for existing patterns and standards.
-    - `memory/Knowledge/`: Architecture & Standards.
-    - `memory/Pattern/`: Reusable code patterns.
-    - `memory/Learning/`: Lessons learned.
-    - `memory/Debugging/`: Troubleshooting guides.
-2.  **Plan**: Create or read the assigned **AgentTask** in `.local/agenttasks/`.
-3.  **Execute**: Implement the solution.
-4.  **Verify**: Run tests and self-correct.
-5.  **Record**: Update `memory/` with new knowledge.
+## 3. Context Engine Workflow
 
-## 4. File System Organization
+Before starting any task, you **MUST** follow this workflow:
+
+1. **Load Skills** — Load the relevant skills for your current task phase using the `skill` tool.
+   - Planning: `active-context`, `project-standards`
+   - Design: `codebase-map`, `project-standards`
+   - Implementation: `project-standards`, `debugging-playbook` (if troubleshooting)
+2. **Search Memory** — Use the `memory-search` tool for specific questions not covered by skills (e.g., `memory-search({ query: "auth pattern", category: "pattern" })`).
+3. **Plan** — Create or read the assigned **AgentTask** in `.local/agenttasks/`.
+4. **Execute** — Implement the solution with loaded context available.
+5. **Verify** — Run tests and check against success criteria.
+6. **Record** — Update `memory/` with new knowledge, patterns, and learnings.
+
+> **Do NOT** browse `memory/` directories manually. Always use skills and the `memory-search` tool.
+
+## 4. Available Skills
+
+Skills are on-demand instruction files loaded via the `skill` tool. Located in `.opencode/skills/`.
+
+| Skill | When to use |
+|---|---|
+| `project-standards` | Before creating tasks, writing code, or reviewing deliverables. Loads coding standards, quality requirements, naming conventions. |
+| `codebase-map` | Before designing architecture or navigating the codebase. Loads project structure, directory layout, file organization conventions. |
+| `active-context` | At the start of any planning or review session. Loads current work-in-progress state (active tasks, open stories, project phase). |
+| `debugging-playbook` | When encountering errors or investigating bugs. Loads troubleshooting guides, known issues, and lessons learned. |
+
+## 5. Available Commands
+
+Commands are reusable prompt templates invoked via `/command-name` in the command palette. Located in `.opencode/commands/`.
+
+| Command | Purpose |
+|---|---|
+| `/plan <request>` | Start a planning session — loads context, checks open stories/tasks, creates AgentTasks. |
+| `/status` | Generate a project status report — summarizes stories, tasks, and recent activity. |
+| `/review <task>` | Review changes against an AgentTask's success criteria — reports ✅/❌/⚠️ per criterion. |
+| `/memory-search <query>` | Search project memory by keyword — groups results by category. |
+
+## 6. File System Organization
+
 - **Source Code**: `src/` (Only Developer touches this).
 - **Documentation**: `docu/` (Project documentation).
 - **Task Management**: `.local/agenttasks/`, `.local/stories/` (Git-ignored).
-- **Memory**: `memory/` (Committed knowledge base).
-- **Configuration**: `.opencode/` (Agent & Plugin definitions).
+- **Memory**: `memory/` (Committed knowledge base — Knowledge, Pattern, Learning, Debugging).
+- **Configuration**: `.opencode/` — Agent system configuration:
+  - `agents/` — Agent definitions (markdown with YAML frontmatter).
+  - `plugins/` — Lifecycle hook plugins (JavaScript).
+  - `skills/` — On-demand instruction files loaded via `skill` tool.
+  - `tools/` — Custom tools extending agent capabilities.
+  - `commands/` — Reusable prompt templates for common workflows.
 
-## 5. Agent Phases & Gating
+## 7. Agent Phases & Gating
 - **Planning Phase**: `requirements-engineer.md` — elicits and structures requirements; creates Stories/AgentTasks. MUST stop and request user feedback before proceeding to Design.
 - **Design Phase**: `software-architect.md` — designs architecture and refines AgentTasks. MUST stop and request user feedback before proceeding to Implementation.
 - **Implementation Phase**: `developer.md` — implements code and tests per tasks and architecture. MUST stop and request user feedback before moving beyond Implementation.
