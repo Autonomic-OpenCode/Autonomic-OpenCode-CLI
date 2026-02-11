@@ -63,22 +63,20 @@ Your objective is [Objective].
 - [Metric 2]: Quality indicator (e.g., "Documentation is updated").
 ```
 
-```
-
 ## Configuration Fields
 
 | Field | Required | Description |
 | :--- | :--- | :--- |
 | `description` | **Yes** | Brief summary of the agent's purpose. Used by the router to select agents. |
 | `mode` | No | `primary`: Main assistant (cycle with Tab). `subagent`: Specialized tool (invoke with @). `all`: Both. |
-| `model` | No | Specific LLM to use (e.g., `openai/gpt-4o`, `anthropic/claude-3-5-sonnet`). |
+| `model` | No | Specific LLM to use (e.g., `anthropic/claude-sonnet-4-20250514`, `openai/o3-mini`). |
 | `temperature` | No | Creativity level (0.0 - 1.0). Low for code/planning, high for brainstorming. |
 | `tools` | No | Enable (`true`) or disable (`false`) specific tools. |
 | `permission` | No | Set `allow`, `ask`, or `deny` for sensitive tools (`edit`, `bash`, `webfetch`). |
 
 ## Best Practices
 
-1.  **Clear Description**: The `description` is crucial for the primary agent to know when to call this subagent.
-2.  **Focused Scope**: Subagents should have a narrow, well-defined purpose (e.g., "Security Auditor" vs "General Developer").
-3.  **Restricted Tools**: Disable dangerous tools (like `bash` or `edit`) if the agent only needs to analyze or plan.
-4.  **Structured Prompt**: Use the prompt body to define the persona, constraints, and output format clearly.
+1. **Clear Description**: The `description` is crucial for the primary agent to know when to call this subagent.
+2. **Focused Scope**: Subagents should have a narrow, well-defined purpose (e.g., "Security Auditor" vs "General Developer").
+3. **Restricted Tools**: Disable dangerous tools (like `bash` or `edit`) if the agent only needs to analyze or plan.
+4. **Structured Prompt**: Use the prompt body to define the persona, constraints, and output format clearly.

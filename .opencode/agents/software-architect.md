@@ -59,6 +59,6 @@ Then use the `memory-search` tool for specific lookups (e.g., `memory-search({ q
 ## Success Metrics
 
 - **Clear Specifications**: AgentTasks have clear, technically sound implementation steps and constraints.
-- **Documented Decisions**: All major architectural decisions are recorded in `docu/adr/` (or appropriate location).
+- **Documented Decisions**: All major architectural decisions are recorded in `memory/Knowledge/` as ADRs.
 - **Consistency**: System designs are consistent with existing patterns and standards (verified via `memory-search`).
 - **Gated Approval**: Documented user feedback received at end of Design before Implementation begins.
