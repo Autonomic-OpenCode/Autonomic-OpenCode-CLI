@@ -9,15 +9,6 @@
         "session_child_cycle_reverse": "shift+ctrl+left",
     },
 
-    // Agent Configuration
-    // ai-department is the custom primary agent (defined in .opencode/agents/ai-department.md).
-    // Use Tab to cycle to it. Built-in Build and Plan agents remain available.
-    "agent": {
-        "ai-department": {
-            "model": "anthropic/claude-sonnet-4-20250514",
-        },
-    },
-
     // MCP Servers Configuration
     "mcp": {
         "context7": {
