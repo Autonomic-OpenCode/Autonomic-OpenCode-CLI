@@ -68,6 +68,8 @@ Once you approve, the Developer:
 | **@requirements-engineer** | Creates backlogs — stories, tasks, estimates | Planning phase |
 | **@software-architect** | Designs systems — architecture, ADRs, task refinement | Design phase |
 | **@developer** | Writes code — implementation, tests, debugging | Implementation phase |
+| **@security-engineer** | Conducts security reviews, vulnerability assessments, threat modeling | Security review phase |
+| **@qa-engineer** | Designs test strategies, creates test plans, enforces quality gates | QA phase |
 
 All agent definitions live in `.opencode/agents/`. Each is a markdown file with a system prompt that tells the AI how to behave, what tools it can use, and what it's not allowed to do.
 
@@ -99,6 +101,7 @@ Shortcuts you type in OpenCode to trigger common workflows:
 | `/status` | Get a status report — open stories, tasks, recent commits, current phase |
 | `/review [task]` | Review a task — checks each success criterion as ✅/❌/⚠️ |
 | `/memory-search <query>` | Search the knowledge base by keyword |
+| `/handoff` | Generate a structured handoff document for transitioning between sessions or team members |
 
 ### Standards & Schemas (`instructions/`)
 
@@ -127,9 +130,9 @@ These are git-ignored because they're your local working state, not shared confi
 .opencode/
 ├── agents/          # Agent definitions (who does what)
 ├── skills/          # Knowledge files agents load on demand
-├── plugins/         # Lifecycle hooks (security, compaction)
-├── tools/           # Custom tools (memory-search)
-└── commands/        # Shortcut templates (/plan, /status, /review, /memory-search)
+├── plugins/         # Lifecycle hooks (security, compaction, memory-auto-record)
+├── tools/           # Custom tools (memory-search, task-graph)
+└── commands/        # Shortcut templates (/plan, /status, /review, /memory-search, /handoff)
 
 instructions/        # Standards and schemas all agents follow
 memory/              # Committed knowledge base (grows over time)
