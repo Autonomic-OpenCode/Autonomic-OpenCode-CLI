@@ -26,10 +26,13 @@ project-root/
 │   │   ├── ai-department.md    # Primary agent — routes all requests
 │   │   ├── requirements-engineer.md  # Subagent — planning phase
 │   │   ├── software-architect.md     # Subagent — design phase
-│   │   └── developer.md              # Subagent — implementation phase
+│   │   ├── developer.md              # Subagent — implementation phase
+│   │   ├── security-engineer.md      # Subagent — security review phase
+│   │   └── qa-engineer.md            # Subagent — quality assurance phase
 │   ├── plugins/                # OpenCode lifecycle plugins
 │   │   ├── security-protection.js    # Blocks access to sensitive files
-│   │   └── memory-auto-record.js     # Prompts agent to record learnings after tasks
+│   │   ├── memory-auto-record.js     # Prompts agent to record learnings after tasks
+│   │   └── context-compaction.js     # Compacts conversation context to stay within limits
 │   ├── skills/                 # On-demand knowledge modules (this directory)
 │   ├── tools/                  # Custom tools for agents
 │   │   ├── memory-search.js    # Search memory/ directory by keyword
@@ -79,6 +82,8 @@ project-root/
 - **Requirements Engineer** (subagent): Planning phase — creates Stories and AgentTasks
 - **Software Architect** (subagent): Design phase — designs architecture, refines tasks
 - **Developer** (subagent): Implementation phase — writes code and tests
+- **Security Engineer** (subagent): Security review — vulnerability assessments and threat modeling
+- **QA Engineer** (subagent): Quality assurance — test strategies, quality gates, and bug reports
 
 ## Phase Flow
 
