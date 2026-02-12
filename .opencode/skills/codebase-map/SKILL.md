@@ -32,6 +32,8 @@ project-root/
 │   │   └── memory-auto-record.js     # Prompts agent to record learnings after tasks
 │   ├── skills/                 # On-demand knowledge modules (this directory)
 │   ├── tools/                  # Custom tools for agents
+│   │   ├── memory-search.js    # Search memory/ directory by keyword
+│   │   └── task-graph.js       # Visualize task status and dependencies
 │   └── commands/               # Reusable command templates
 │       ├── plan.md             # /plan — start a planning session
 │       ├── status.md           # /status — generate project status report
