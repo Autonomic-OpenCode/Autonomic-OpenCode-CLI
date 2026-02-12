@@ -1,46 +1,17 @@
 # Autonomic-OpenCode-CLI
 
-## Overview
-This project provides a quick start for OpenCode with agents. It implements an autonomic multi-agent system designed to function like a complete developer department.
+A quick-start toolkit for OpenCode with autonomous agents. It provides a multi-agent system that functions like a complete developer department — agents plan, build, review, and ship code on their own.
 
 ## Goals
 
-- **Quick Start**: Get up and running with OpenCode agents immediately.
-- **Autonomic System**: Agents work autonomously to complete tasks.
-- **Virtual Department**: Simulates roles within a software development team (e.g., Developers, PMs, QA).
+- **Quick Start** — Get up and running with OpenCode agents immediately.
+- **Autonomic System** — Agents work autonomously to complete tasks.
+- **Virtual Department** — Simulates roles within a software development team (Developers, PMs, QA).
 
-## Context Engine
+## Documentation
 
-The project includes a three-layer Context Engine that gives agents a deeper understanding of the project before they act.
-
-### 1. Agent Skills (on-demand knowledge)
-
-Skills are instruction files loaded via the `skill` tool. Each agent loads the skills relevant to their phase.
-
-| Skill | Purpose |
-|---|---|
-| `project-standards` | Coding standards, quality requirements, naming conventions |
-| `codebase-map` | Project structure, directory layout, file organization |
-| `active-context` | Current work state — open stories, in-flight tasks, project phase |
-| `debugging-playbook` | Troubleshooting guides, known issues, lessons learned |
-
-### 2. Context Compaction (session persistence)
-
-A plugin that hooks into OpenCode's session compaction to preserve the active task ID, title, goal, and success criteria across long sessions.
-
-### 3. Memory Search (knowledge retrieval)
-
-A custom tool (`memory-search`) that searches the `memory/` knowledge base by keyword and category, replacing manual directory browsing.
-
-### Quick Commands
-
-| Command | What it does |
-|---|---|
-| `/plan <request>` | Start a planning session with full context |
-| `/status` | Generate a project status report |
-| `/review <task>` | Review changes against task success criteria |
-| `/memory-search <query>` | Search project memory by keyword |
-| `/handoff` | Generate a structured handoff document for agent/session transitions |
+- [Project Documentation](docu/PROJECT_DOCUMENTATION.md) — Full reference for all components, agents, commands, skills, tools, and plugins.
+- [Example Workflow](docu/EXAMPLE_WORKFLOW.md) — End-to-end scenario walkthrough.
 
 ## Project Structure
 
@@ -57,19 +28,17 @@ memory/              # Committed knowledge base (Knowledge/, Pattern/, Learning/
 .local/              # Git-ignored task management (agenttasks/, stories/)
 ```
 
-## Usage in Other Projects
+## Installation
 
-You can easily use these agents in any other project without using Git submodules. We provide synchronization scripts that download the latest configuration directly from this repository.
+Use these agents in any project — no Git submodules required. The sync scripts download the latest configuration directly from this repository.
 
-### Synchronization Logic
+### How It Works
 
 The scripts automatically detect your environment:
-- **Inside a DevContainer**: Syncs configuration to the **current project directory** (`.opencode/`, `instructions/`, `opencode.jsonc`).
-- **Host Machine (Global)**: Syncs configuration to your **global OpenCode config** (`~/.config/opencode` or `%USERPROFILE%\.config\opencode`).
+- **Inside a DevContainer** — Syncs to the **current project directory** (`.opencode/`, `instructions/`, `opencode.jsonc`).
+- **Host Machine (Global)** — Syncs to your **global OpenCode config** (`~/.config/opencode` or `%USERPROFILE%\.config\opencode`).
 
-### Quick Start (One-Liner)
-
-Run these commands in your terminal to install or update the agents.
+### One-Liner Install
 
 **Windows (PowerShell):**
 ```powershell
@@ -83,5 +52,4 @@ curl -fsSL https://raw.githubusercontent.com/Autonomic-OpenCode/Autonomic-OpenCo
 
 ### Manual Installation
 
-Alternatively, you can download the scripts from the `scripts/` directory and place them in your project root.
-
+Download the scripts from the `scripts/` directory and place them in your project root.
