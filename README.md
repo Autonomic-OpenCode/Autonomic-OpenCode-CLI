@@ -40,16 +40,17 @@ A custom tool (`memory-search`) that searches the `memory/` knowledge base by ke
 | `/status` | Generate a project status report |
 | `/review <task>` | Review changes against task success criteria |
 | `/memory-search <query>` | Search project memory by keyword |
+| `/handoff` | Generate a structured handoff document for agent/session transitions |
 
 ## Project Structure
 
 ```
 .opencode/
-├── agents/          # Agent definitions (ai-department, requirements-engineer, software-architect, developer)
-├── plugins/         # Lifecycle hooks (security-protection, context-compaction)
+├── agents/          # Agent definitions (ai-department, requirements-engineer, software-architect, developer, security-engineer, qa-engineer)
+├── plugins/         # Lifecycle hooks (security-protection, context-compaction, memory-auto-record)
 ├── skills/          # On-demand knowledge (project-standards, codebase-map, active-context, debugging-playbook)
-├── tools/           # Custom tools (memory-search)
-└── commands/        # Prompt templates (/plan, /status, /review, /memory-search)
+├── tools/           # Custom tools (memory-search, task-graph)
+└── commands/        # Prompt templates (/plan, /status, /review, /memory-search, /handoff)
 
 instructions/        # Standards and schemas (AGENTS.md, QUALITY_STANDARDS.md, etc.)
 memory/              # Committed knowledge base (Knowledge/, Pattern/, Learning/, Debugging/)
