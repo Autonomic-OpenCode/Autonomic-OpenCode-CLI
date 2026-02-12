@@ -19,48 +19,31 @@ Each specialist pauses and asks for your approval before the next one starts. Yo
 
 ### 1. You make a request
 
-Open OpenCode and talk to the AI Department agent (it's the primary agent — selected by default, or press Tab to cycle to it). Just describe what you need in plain language.
-
-Or use a shortcut command:
-- **`/plan <request>`** — Jump straight into a planning session
-- **`/status`** — See what's currently in progress
-- **`/review`** — Check if a task's success criteria are met
+Open OpenCode and talk to the AI Department agent. Describe what you need in plain language, or use a shortcut command (`/plan`, `/status`, `/review`).
 
 ### 2. Planning Phase → @requirements-engineer
 
-The AI Department routes your request to the Requirements Engineer, who:
-- Checks what work already exists (open stories, in-flight tasks)
-- Breaks your request into **Stories** (big work) and **AgentTasks** (individual units of work)
-- Assigns complexity estimates (Nano, Tiny, Medium, Large, Mega)
-- Writes everything to structured files in `.local/stories/` and `.local/agenttasks/`
+The AI Department routes your request to the Requirements Engineer, who breaks it into **Stories** and **AgentTasks** with complexity estimates, then writes them to `.local/stories/` and `.local/agenttasks/`.
 
-**Then it stops and asks you**: "Here's the plan. Approve to continue to Design?"
+**Then it stops and asks you**: "Approve to continue to Design?"
 
 ### 3. Design Phase → @software-architect
 
-Once you approve, the Architect:
-- Reviews the tasks for technical feasibility
-- Adds implementation details (frameworks, patterns, interfaces)
-- Creates Architecture Decision Records (ADRs) for significant choices
-- Refines the tasks with specific technical constraints
+The Architect reviews tasks for technical feasibility, adds implementation details, creates ADRs, and refines tasks with technical constraints.
 
-**Then it stops and asks you**: "Here's the design. Approve to continue to Implementation?"
+**Then it stops and asks you**: "Approve to continue to Implementation?"
 
 ### 4. Implementation Phase → @developer
 
-Once you approve, the Developer:
-- Writes the actual code following the task specifications
-- Writes tests
-- Updates documentation
-- Records new patterns and learnings for future reference
+The Developer writes code, tests, and documentation following the task specifications, then records new patterns and learnings.
 
 **Then it stops and asks you**: "Implementation complete. Ready for review?"
 
 > **Shortcut**: Say "don't stop" at any gate to let agents flow through all phases without pausing.
 
-## What's In This Repository
+---
 
-### The Agents
+## The Agents
 
 | Agent | What it does | When it's active |
 |---|---|---|
@@ -71,41 +54,83 @@ Once you approve, the Developer:
 | **@security-engineer** | Conducts security reviews, vulnerability assessments, threat modeling | Security review phase |
 | **@qa-engineer** | Designs test strategies, creates test plans, enforces quality gates | QA phase |
 
-All agent definitions live in `.opencode/agents/`. Each is a markdown file with a system prompt that tells the AI how to behave, what tools it can use, and what it's not allowed to do.
+All agent definitions live in `.opencode/agents/`. Each is a markdown file with a system prompt defining behavior, tools, and permissions.
 
-### The Knowledge System
+---
 
-Agents need context to do good work. Three mechanisms provide it:
+## Context Engine Architecture
 
-**Skills** (`.opencode/skills/`) — Instruction files agents load before starting work. Think of them as "cheat sheets" for each phase:
-- `project-standards` — Your coding standards, naming conventions, quality rules
-- `codebase-map` — How the project is structured, where things live
-- `active-context` — What's currently being worked on (open stories, tasks)
+The Context Engine gives agents project knowledge through three complementary layers.
+
+### Layer 1: Skills — On-Demand Knowledge
+
+Skills are instruction files in `.opencode/skills/` loaded via the `skill` tool at the start of each phase.
+
+| Skill | Purpose |
+|---|---|
+| `project-standards` | Coding standards, quality requirements, naming conventions |
+| `codebase-map` | Project structure, directory layout, file organization |
+| `active-context` | Current work state — open stories, in-flight tasks, project phase |
+| `debugging-playbook` | Troubleshooting guides, known issues, lessons learned |
+
+### Layer 2: Context Compaction — Session Persistence
+
+The `context-compaction` plugin hooks into OpenCode's session compaction to preserve the active task ID, title, goal, and success criteria across long sessions.
+
+### Layer 3: Memory Search — Knowledge Retrieval
+
+The `memory-search` tool searches the `memory/` knowledge base by keyword and category, replacing manual directory browsing.
+
+---
+
+## The Knowledge System
+
+**Skills** (`.opencode/skills/`) — Instruction files agents load before starting work:
+- `project-standards` — Coding standards, naming conventions, quality rules
+- `codebase-map` — Project structure, where things live
+- `active-context` — Open stories, in-flight tasks
 - `debugging-playbook` — Known issues, troubleshooting steps
 
-**Memory** (`memory/`) — A committed knowledge base that grows over time. Agents write to it after completing work, and search it before starting new work:
+**Memory** (`memory/`) — A committed knowledge base that grows over time:
 - `Knowledge/` — Architecture decisions, standards, tech stack choices
 - `Pattern/` — Reusable code and workflow patterns
 - `Learning/` — Lessons learned, things that didn't work
 - `Debugging/` — Troubleshooting guides for known issues
 
-**Compaction Plugin** — When a session gets long, OpenCode compresses the conversation. This plugin ensures the active task context (what you're working on, what the success criteria are) survives that compression.
+---
 
-### Commands
+## Plugins
 
-Shortcuts you type in OpenCode to trigger common workflows:
+| Plugin | File | Hook | What it does |
+|---|---|---|---|
+| **security-protection** | `.opencode/plugins/security-protection.js` | `tool.execute.before` | Blocks agent access to sensitive files (`.env`, `.pem`, `.pfx`, `id_rsa`) |
+| **context-compaction** | `.opencode/plugins/context-compaction.js` | `experimental.session.compacting` | Preserves active task and story context during session compaction |
+| **memory-auto-record** | `.opencode/plugins/memory-auto-record.js` | `experimental.session.compacting` | Detects completed tasks with no memory entry and reminds agents to record learnings |
+
+---
+
+## Tools
+
+| Tool | File | What it does |
+|---|---|---|
+| **memory-search** | `.opencode/tools/memory-search.js` | Searches `memory/` by keyword and optional category. Returns file paths and relevant snippets, scored by relevance. |
+| **task-graph** | `.opencode/tools/task-graph.js` | Visualizes task status and dependencies from `.local/agenttasks/` and `.local/stories/`. Shows story groupings and dependency chains. |
+
+---
+
+## Commands
 
 | Command | What it does |
 |---|---|
-| `/plan <request>` | Start a planning session — the agent loads context, checks existing work, creates tasks |
+| `/plan <request>` | Start a planning session — loads context, checks existing work, creates tasks |
 | `/status` | Get a status report — open stories, tasks, recent commits, current phase |
 | `/review [task]` | Review a task — checks each success criterion as ✅/❌/⚠️ |
 | `/memory-search <query>` | Search the knowledge base by keyword |
 | `/handoff` | Generate a structured handoff document for transitioning between sessions or team members |
 
-### Standards & Schemas (`instructions/`)
+---
 
-Templates and rules that keep everything consistent:
+## Standards & Schemas (`instructions/`)
 
 | File | What it defines |
 |---|---|
@@ -116,46 +141,33 @@ Templates and rules that keep everything consistent:
 | `QUALITY_STANDARDS.md` | Definition of Done, testing requirements |
 | `COMMUNICATION_STANDARDS.md` | How agents should communicate |
 
-### Task Management (`.local/` — git-ignored)
+---
 
-Work-in-progress files that are local to your machine:
+## Task Management (`.local/` — git-ignored)
+
+Work-in-progress files local to your machine:
 - `.local/agenttasks/` — Individual task files (YAML) with goals, success criteria, complexity
 - `.local/stories/` — Story files (Markdown) grouping related tasks
 
 These are git-ignored because they're your local working state, not shared config.
 
-## Project Structure
+---
+
+## Phase Gating Rules
+
+Each phase boundary requires explicit user approval before proceeding:
 
 ```
-.opencode/
-├── agents/          # Agent definitions (who does what)
-├── skills/          # Knowledge files agents load on demand
-├── plugins/         # Lifecycle hooks (security, compaction, memory-auto-record)
-├── tools/           # Custom tools (memory-search, task-graph)
-└── commands/        # Shortcut templates (/plan, /status, /review, /memory-search, /handoff)
-
-instructions/        # Standards and schemas all agents follow
-memory/              # Committed knowledge base (grows over time)
-.local/              # Git-ignored local task management
-scripts/             # Sync scripts for installing in other projects
-opencode.jsonc       # OpenCode configuration
+Planning → [User Gate] → Design → [User Gate] → Implementation → [User Gate]
 ```
 
-## Using This in Another Project
+At each gate, agents ask: **"Approve to continue to [next phase]? (yes/no/don't stop/stop at phase X)"**
 
-You don't need to clone this repo into every project. Run one command to sync the agent configuration:
+| Response | Effect |
+|---|---|
+| **"yes"** | Proceed to the next phase |
+| **"no"** | Stay in the current phase for revisions |
+| **"don't stop"** | Proceed through all remaining phases without pausing |
+| **"stop at phase X"** | Proceed until reaching phase X, then pause for feedback |
 
-**Linux / macOS:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/Autonomic-OpenCode/Autonomic-OpenCode-CLI/main/scripts/sync-agents.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/Autonomic-OpenCode/Autonomic-OpenCode-CLI/main/scripts/sync-agents.ps1'))
-```
-
-This downloads the agents, skills, plugins, tools, commands, instructions, and config into your project. Run it again anytime to update.
-
-The scripts auto-detect whether you're in a DevContainer (syncs to project root) or on your host machine (syncs to `~/.config/opencode` for global use).
-
+Agents record the user's decision in the relevant AgentTask, Story, or ADR before transitioning.
