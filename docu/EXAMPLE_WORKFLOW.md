@@ -1,6 +1,6 @@
 # Autonomic OpenCode — Example Workflow
 
-This document walks through a complete, end-to-end scenario using Autonomic OpenCode: from a user's initial request through planning, design, implementation, and review. Every component in the system — agents, skills, tools, plugins, and commands — is demonstrated in context.
+This document walks through a complete end-to-end scenario demonstrating every component of Autonomic OpenCode in action. For a system overview and component reference, see [Project Documentation](PROJECT_DOCUMENTATION.md). For installation instructions, see the [README](../README.md).
 
 **Scenario**: Add a REST API for user profile management with CRUD operations.
 
@@ -8,142 +8,12 @@ This document walks through a complete, end-to-end scenario using Autonomic Open
 
 ## Table of Contents
 
-1. [Overview](#1-overview)
-2. [System Architecture Overview](#2-system-architecture-overview)
-3. [The Example Scenario](#3-the-example-scenario)
-4. [Behind the Scenes: How Components Work Together](#4-behind-the-scenes-how-components-work-together)
-5. [Quick Reference](#5-quick-reference)
-6. [Getting Started](#6-getting-started)
+1. [The Example Scenario](#1-the-example-scenario)
+2. [Behind the Scenes: How Components Work Together](#2-behind-the-scenes-how-components-work-together)
 
 ---
 
-## 1. Overview
-
-### What Is Autonomic OpenCode?
-
-Autonomic OpenCode is a multi-agent AI developer department that runs inside [OpenCode](https://opencode.ai). Instead of prompting a single AI assistant to write code, you talk to one primary agent — the **AI Department** — and it delegates work to specialist agents who handle planning, architecture, implementation, security, and quality assurance.
-
-### What Can It Accomplish?
-
-The system covers the full software development lifecycle (SDLC):
-
-- **Planning** — The Requirements Engineer creates structured backlogs with stories and tasks.
-- **Design** — The Software Architect designs systems, makes architecture decisions, and refines tasks with technical details.
-- **Implementation** — The Developer writes code, tests, and documentation.
-- **Security** — The Security Engineer conducts vulnerability assessments and threat modeling.
-- **Quality Assurance** — The QA Engineer enforces quality gates and manages test strategies.
-
-### The Key Differentiator
-
-You talk to one agent. It delegates to specialists. Each specialist pauses at phase boundaries and asks for your approval before the next phase begins. You stay in control without doing the planning, structuring, or task breakdown yourself.
-
----
-
-## 2. System Architecture Overview
-
-### The `.opencode/` Configuration Structure
-
-The entire agent system is configured through files in the project directory:
-
-```
-.opencode/
-├── agents/                 # Agent definitions (primary + subagents)
-│   ├── ai-department.md    # Primary agent — routes all requests
-│   ├── requirements-engineer.md  # Planning phase
-│   ├── software-architect.md     # Design phase
-│   ├── developer.md              # Implementation phase
-│   ├── security-engineer.md      # Cross-cutting — security reviews
-│   └── qa-engineer.md            # Cross-cutting — quality gates
-├── plugins/                # Lifecycle hook plugins
-│   ├── security-protection.js    # Blocks access to sensitive files
-│   ├── context-compaction.js     # Preserves task context during session compaction
-│   └── memory-auto-record.js     # Reminds agents to record learnings
-├── skills/                 # On-demand knowledge modules
-│   ├── project-standards/        # Coding standards, quality rules, naming conventions
-│   ├── codebase-map/             # Project structure and directory layout
-│   ├── active-context/           # Current work state (open stories, tasks)
-│   └── debugging-playbook/       # Troubleshooting guides and known issues
-├── tools/                  # Custom tools for agents
-│   ├── memory-search.js          # Search memory/ by keyword and category
-│   └── task-graph.js             # Visualize task status and dependencies
-└── commands/               # Reusable command templates
-    ├── plan.md                   # /plan — start a planning session
-    ├── status.md                 # /status — generate project status report
-    ├── review.md                 # /review — review changes against task criteria
-    ├── memory-search.md          # /memory-search — search project memory
-    └── handoff.md                # /handoff — generate structured handoff document
-```
-
-### Component Types
-
-| Component | Location | Purpose |
-|---|---|---|
-| **Agents** | `.opencode/agents/` | Markdown files with YAML frontmatter defining each agent's role, permissions, and system prompt |
-| **Plugins** | `.opencode/plugins/` | JavaScript modules that hook into OpenCode lifecycle events (tool execution, session compaction) |
-| **Skills** | `.opencode/skills/` | On-demand instruction files loaded via the `skill` tool — phase-specific knowledge |
-| **Tools** | `.opencode/tools/` | Custom tools that extend agent capabilities (searching memory, visualizing tasks) |
-| **Commands** | `.opencode/commands/` | Markdown templates invoked via `/command-name` in the command palette |
-
-### The `instructions/` Standards and Schemas
-
-All agents follow shared standards loaded via `opencode.jsonc`:
-
-| File | What It Defines |
-|---|---|
-| `instructions/AGENTS.md` | Central index — the master document all agents follow |
-| `instructions/AGENT_TASK_SCHEMA.md` | How to define tasks (YAML in `.local/agenttasks/`) |
-| `instructions/STORY_SCHEMA.md` | How to define stories (Markdown in `.local/stories/`) |
-| `instructions/ADR_SCHEMA.md` | How to document architecture decisions (Markdown in `memory/Knowledge/`) |
-| `instructions/QUALITY_STANDARDS.md` | Definition of Done, testing requirements, failure protocols |
-| `instructions/COMMUNICATION_STANDARDS.md` | Tone, delegation format, status reporting |
-
-### The `memory/` Committed Knowledge Base
-
-A version-controlled knowledge base that grows over time as agents complete work:
-
-| Directory | Content |
-|---|---|
-| `memory/Knowledge/` | Architecture Decision Records (ADRs), tech stack decisions, standards |
-| `memory/Pattern/` | Reusable code and workflow patterns |
-| `memory/Learning/` | Lessons learned, error solutions, insights |
-| `memory/Debugging/` | Troubleshooting guides, known issues, diagnostic steps |
-
-### The `.local/` Git-Ignored Task Management
-
-Work-in-progress files local to your machine:
-
-- `.local/agenttasks/` — Individual task YAML files with goals, success criteria, and complexity
-- `.local/stories/` — Story Markdown files grouping related tasks into larger features
-
-These are git-ignored because they represent your local working state.
-
-### How `opencode.jsonc` Ties It Together
-
-The `opencode.jsonc` configuration file tells OpenCode where to find instructions and what MCP servers to use:
-
-```jsonc
-{
-    "$schema": "https://opencode.ai/config.json",
-    "instructions": ["~/.config/opencode/instructions/*.md", "./instructions/*.md"],
-    "keybinds": {
-        "session_child_cycle": "shift+ctrl+right",
-        "session_child_cycle_reverse": "shift+ctrl+left",
-    },
-    "mcp": {
-        "context7": {
-            "type": "local",
-            "command": ["npx", "-y", "@upstash/context7-mcp"],
-            "enabled": true,
-        },
-    },
-}
-```
-
-The `instructions` array loads all Markdown files from `instructions/` as system-level context for every agent.
-
----
-
-## 3. The Example Scenario
+## 1. The Example Scenario
 
 **Scenario**: A user wants to add a REST API for user profile management with CRUD operations (Create, Read, Update, Delete).
 
@@ -746,227 +616,38 @@ None
 
 ---
 
-## 4. Behind the Scenes: How Components Work Together
+## 2. Behind the Scenes: How Components Work Together
+
+This section summarizes how the components demonstrated above fit together. For full details on every component, see [Project Documentation](PROJECT_DOCUMENTATION.md).
 
 ### The Context Engine (Three Layers)
 
-The Context Engine (documented in `memory/Knowledge/adr-001-context-engine-architecture.md`) provides agents with project knowledge through three complementary layers:
+Agents get project knowledge through three complementary layers (documented in `memory/Knowledge/adr-001-context-engine-architecture.md`):
 
-#### Layer 1: Skills — On-Demand Knowledge
+1. **Skills** — On-demand instruction files in `.opencode/skills/` loaded via the `skill` tool at the start of each phase. The four skills (`project-standards`, `codebase-map`, `active-context`, `debugging-playbook`) provide phase-appropriate knowledge without agents needing to browse files manually.
 
-Skills are instruction files in `.opencode/skills/` loaded via the `skill` tool at the start of each phase. They provide structured, phase-appropriate knowledge without agents needing to browse files manually.
+2. **Context Compaction Plugin** — The `context-compaction.js` plugin preserves the active task and story context when OpenCode compacts a long session. Without it, agents would lose track of what they were working on.
 
-| Skill | File | Loaded By | Purpose |
-|---|---|---|---|
-| `project-standards` | `.opencode/skills/project-standards/SKILL.md` | All agents | Coding standards, quality requirements, naming conventions, task schemas |
-| `codebase-map` | `.opencode/skills/codebase-map/SKILL.md` | @software-architect, @security-engineer | Project structure, directory layout, file organization |
-| `active-context` | `.opencode/skills/active-context/SKILL.md` | @requirements-engineer, @qa-engineer | Current work state — open stories, tasks, project phase |
-| `debugging-playbook` | `.opencode/skills/debugging-playbook/SKILL.md` | @developer (when troubleshooting), @security-engineer, @qa-engineer | Troubleshooting guides, known issues, diagnostic workflows |
-
-#### Layer 2: Context Compaction Plugin — Session Persistence
-
-The **context-compaction** plugin (`.opencode/plugins/context-compaction.js`) hooks into OpenCode's `experimental.session.compacting` event. When a long session is compacted to save context window space, this plugin preserves the active task's critical information:
-
-- Reads `.local/agenttasks/` to find the most recently modified task file
-- Extracts the task ID, title, goal, complexity, assigned agent, and top 5 success criteria
-- Reads `.local/stories/` for the active story title
-- Injects this context into the compacted session via `output.context.push(...)`
-
-Without this plugin, agents would lose track of what they were working on after session compaction.
-
-#### Layer 3: Memory Search Tool — Knowledge Retrieval
-
-The **memory-search** tool (`.opencode/tools/memory-search.js`) provides keyword-based search across the `memory/` directory. It replaces manual directory browsing and supports filtering by category:
-
-```
-memory-search({ query: "repository pattern", category: "pattern" })
-memory-search({ query: "API design" })  // searches all categories
-```
-
-The tool scores results by relevance (exact phrase matches in filenames score highest, followed by content matches and individual keyword matches) and returns up to 10 results with file paths and snippets.
+3. **Memory Search Tool** — The `memory-search.js` tool provides keyword-based search across the `memory/` directory, replacing manual directory browsing. Agents use it before starting work to find relevant patterns, learnings, and decisions.
 
 ### Plugins
 
-#### security-protection.js
-
-**File**: `.opencode/plugins/security-protection.js`
-**Hook**: `tool.execute.before`
-
-This plugin intercepts file read operations and blocks access to sensitive files. Before any `read` or `read_file` tool execution, it checks the file path against a list of sensitive patterns:
-
-- `.env` — Environment variables
-- `.pfx` — Certificate bundles
-- `.pem` — SSL certificates
-- `id_rsa` — SSH private keys
-
-If a match is found, the plugin throws a `Security Violation` error, preventing the agent from accessing the file. This enforces the security rule from `instructions/QUALITY_STANDARDS.md` at the system level.
-
-#### context-compaction.js
-
-**File**: `.opencode/plugins/context-compaction.js`
-**Hook**: `experimental.session.compacting`
-
-Described in the Context Engine section above. Preserves active task and story context during session compaction by reading `.local/agenttasks/` and `.local/stories/` and injecting a `<project-context>` block into the compacted output.
-
-#### memory-auto-record.js
-
-**File**: `.opencode/plugins/memory-auto-record.js`
-**Hook**: `experimental.session.compacting`
-
-This plugin detects completed tasks that have no corresponding entry in the `memory/` directory. During session compaction, it:
-
-1. Scans `.local/agenttasks/` for all task files
-2. Scans `memory/Knowledge/`, `memory/Pattern/`, `memory/Learning/`, and `memory/Debugging/` for existing entries
-3. Matches tasks to memory entries by task ID or significant title keywords
-4. For any unrecorded tasks, injects a `<memory-auto-record>` reminder:
-
-```
-⚠️ Unrecorded learnings: Task TASK-003 — Implement profile API controller was completed
-but no memory entry was found in memory/. Consider recording patterns or learnings from
-this work using the memory/ directory (Pattern/, Learning/, Knowledge/, or Debugging/).
-```
-
-This ensures agents don't forget to capture knowledge from completed work.
+- **security-protection.js** — Hooks into `tool.execute.before` to block agent access to sensitive files (`.env`, `.pem`, `.pfx`, `id_rsa`). Throws a `Security Violation` error if a match is found.
+- **context-compaction.js** — Hooks into `experimental.session.compacting` to preserve active task and story context during session compaction.
+- **memory-auto-record.js** — Hooks into `experimental.session.compacting` to detect completed tasks with no corresponding `memory/` entry and inject a reminder to record learnings.
 
 ### Tools
 
-#### memory-search.js
-
-**File**: `.opencode/tools/memory-search.js`
-
-A custom tool that searches the `memory/` directory by keyword and optional category. Agents use it instead of manually browsing memory directories.
-
-**Parameters**:
-- `query` (required) — Keyword or phrase to search for (case-insensitive)
-- `category` (optional) — Filter to `"knowledge"`, `"pattern"`, `"learning"`, or `"debugging"`
-
-**How it works**: Reads all `.md`, `.yaml`, `.yml`, and `.txt` files from the target category directories. Scores each file by exact phrase matches in the filename (10 points), exact phrase matches in content (5 points), and individual word matches (1-3 points each). Returns the top 10 results with file paths and relevant snippets.
-
-#### task-graph.js
-
-**File**: `.opencode/tools/task-graph.js`
-
-A custom tool that visualizes task status and dependencies from `.local/agenttasks/` and `.local/stories/`.
-
-**Parameters**:
-- `story_id` (optional) — Filter to a specific story (e.g., `"STORY-001"`)
-
-**How it works**: Parses all task YAML files and story Markdown files. Groups tasks by story, infers status from task fields (✅ done, 🔄 in-progress, 🔒 blocked, ⏳ ready, ❓ unknown), extracts dependency relationships from story breakdown plans, and builds dependency chains. Ungrouped tasks (not assigned to any story) are shown separately.
+- **memory-search.js** — Searches `memory/` by keyword and optional category (`knowledge`, `pattern`, `learning`, `debugging`). Returns up to 10 results ranked by relevance with file paths and snippets.
+- **task-graph.js** — Visualizes task status and dependencies from `.local/agenttasks/` and `.local/stories/`. Groups tasks by story and builds dependency chains.
 
 ### The Memory System
 
-The `memory/` directory is a committed knowledge base that grows over time. Agents write to it after completing work and search it before starting new work.
+The `memory/` directory is a committed knowledge base that grows over time:
 
 | Directory | Content | Example |
 |---|---|---|
-| `memory/Knowledge/` | ADRs and architecture decisions | `adr-001-context-engine-architecture.md` — Documents the three-layer Context Engine design |
-| `memory/Pattern/` | Reusable code and workflow patterns | `agent-task-creation.md` — Standard pattern for creating well-defined AgentTasks |
-| `memory/Learning/` | Lessons learned and insights | `skill-naming-conventions.md` — OpenCode skill names must be lowercase with hyphens |
-| `memory/Debugging/` | Troubleshooting guides | `plugin-api-context-object.md` — How to correctly destructure the plugin context object |
-
-**How agents write to memory**: After completing a task, agents record new patterns in `memory/Pattern/`, architecture decisions as ADRs in `memory/Knowledge/`, lessons learned in `memory/Learning/`, and troubleshooting guides in `memory/Debugging/`. All entries are written from a team perspective ("We encountered...", "Our approach...").
-
-**How agents search memory**: Before starting work, agents use the `memory-search` tool to find relevant context. The `memory-auto-record` plugin reminds agents to record learnings if they forget.
-
----
-
-## 5. Quick Reference
-
-### All Agents
-
-| Agent | File | Mode | Phase | What It Does |
-|---|---|---|---|---|
-| **AI Department** | `.opencode/agents/ai-department.md` | Primary | Always active | Routes user requests to specialist agents |
-| **@requirements-engineer** | `.opencode/agents/requirements-engineer.md` | Subagent | Planning | Creates stories and AgentTasks from user requests |
-| **@software-architect** | `.opencode/agents/software-architect.md` | Subagent | Design | Designs architecture, refines tasks, creates ADRs |
-| **@developer** | `.opencode/agents/developer.md` | Subagent | Implementation | Writes code, tests, and documentation |
-| **@security-engineer** | `.opencode/agents/security-engineer.md` | Subagent | Cross-cutting | Security reviews, vulnerability assessments, threat modeling |
-| **@qa-engineer** | `.opencode/agents/qa-engineer.md` | Subagent | Cross-cutting | Quality gate enforcement, test strategies, bug management |
-
-### All Commands
-
-| Command | File | What It Does |
-|---|---|---|
-| `/plan <request>` | `.opencode/commands/plan.md` | Start a planning session — loads context, checks existing work, creates tasks |
-| `/status` | `.opencode/commands/status.md` | Generate a project status report — stories, tasks, recent activity, current phase |
-| `/review <task>` | `.opencode/commands/review.md` | Review changes against task success criteria — ✅/❌/⚠️ per criterion |
-| `/memory-search <query>` | `.opencode/commands/memory-search.md` | Search project memory by keyword — groups results by category |
-| `/handoff` | `.opencode/commands/handoff.md` | Generate a structured handoff document — stories, tasks, blockers, next steps |
-
-### All Skills
-
-| Skill | File | When to Load |
-|---|---|---|
-| `project-standards` | `.opencode/skills/project-standards/SKILL.md` | Before creating tasks, writing code, or reviewing deliverables |
-| `codebase-map` | `.opencode/skills/codebase-map/SKILL.md` | Before designing architecture or navigating the codebase |
-| `active-context` | `.opencode/skills/active-context/SKILL.md` | At the start of any planning or review session |
-| `debugging-playbook` | `.opencode/skills/debugging-playbook/SKILL.md` | When encountering errors or investigating bugs |
-
-### All Tools
-
-| Tool | File | What It Does |
-|---|---|---|
-| `memory-search` | `.opencode/tools/memory-search.js` | Searches `memory/` by keyword and category — returns file paths and snippets |
-| `task-graph` | `.opencode/tools/task-graph.js` | Visualizes task status and dependencies from `.local/` — shows story groupings and chains |
-
-### All Plugins
-
-| Plugin | File | Hook | What It Does |
-|---|---|---|---|
-| `security-protection` | `.opencode/plugins/security-protection.js` | `tool.execute.before` | Blocks agent access to sensitive files (.env, .pem, .pfx, id_rsa) |
-| `context-compaction` | `.opencode/plugins/context-compaction.js` | `experimental.session.compacting` | Preserves active task and story context during session compaction |
-| `memory-auto-record` | `.opencode/plugins/memory-auto-record.js` | `experimental.session.compacting` | Reminds agents to record learnings for completed tasks without memory entries |
-
-### Phase Gating Rules
-
-Each phase boundary requires explicit user approval before proceeding:
-
-```
-Planning → [User Gate] → Design → [User Gate] → Implementation → [User Gate]
-```
-
-- Agents ask: "Approve to continue to [next phase]? (yes/no/don't stop/stop at phase X)"
-- **"yes"** — Proceed to the next phase
-- **"no"** — Stay in the current phase for revisions
-- **"don't stop"** — Proceed through all remaining phases without pausing
-- **"stop at phase X"** — Proceed until reaching phase X, then pause for feedback
-
-Agents must record the user's decision in the relevant AgentTask, Story, or ADR before transitioning.
-
-### The "don't stop" Shortcut
-
-Say **"don't stop"** at any phase gate to let agents flow through all remaining phases without pausing. This is useful when you trust the plan and want the system to execute end-to-end without interruption. The agents will still record their work in memory and follow all quality standards — they just skip the approval prompts.
-
----
-
-## 6. Getting Started
-
-### Installing in Another Project
-
-You don't need to clone the Autonomic OpenCode repository into every project. Run one command to sync the agent configuration:
-
-**Linux / macOS:**
-```bash
-curl -fsSL https://raw.githubusercontent.com/Autonomic-OpenCode/Autonomic-OpenCode-CLI/main/scripts/sync-agents.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/Autonomic-OpenCode/Autonomic-OpenCode-CLI/main/scripts/sync-agents.ps1'))
-```
-
-This downloads the agents, skills, plugins, tools, commands, instructions, and `opencode.jsonc` into your project. Run it again anytime to update to the latest version.
-
-The scripts auto-detect your environment:
-- **Inside a DevContainer**: Syncs to the current project directory (`.opencode/`, `instructions/`, `opencode.jsonc`)
-- **Host machine**: Syncs to `~/.config/opencode` for global use across all projects
-
-### First Steps After Installation
-
-1. **Open OpenCode** in your project directory
-2. **Talk to the AI Department** — it's the primary agent, selected by default (press Tab to cycle agents if needed)
-3. **Start with `/plan`** — describe what you want to build, and the system handles the rest
-4. **Review each phase gate** — approve, revise, or say "don't stop" to let it run
-5. **Use `/status`** anytime to see where things stand
-6. **Use `/review`** to verify task completion against success criteria
-7. **Use `/handoff`** at the end of a session to generate context for the next one
+| `memory/Knowledge/` | ADRs and architecture decisions | `adr-001-context-engine-architecture.md` |
+| `memory/Pattern/` | Reusable code and workflow patterns | `agent-task-creation.md` |
+| `memory/Learning/` | Lessons learned and insights | `skill-naming-conventions.md` |
+| `memory/Debugging/` | Troubleshooting guides | `plugin-api-context-object.md` |
