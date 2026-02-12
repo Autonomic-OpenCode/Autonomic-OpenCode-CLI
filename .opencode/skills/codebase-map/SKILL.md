@@ -28,10 +28,16 @@ project-root/
 │   │   ├── software-architect.md     # Subagent — design phase
 │   │   └── developer.md              # Subagent — implementation phase
 │   ├── plugins/                # OpenCode lifecycle plugins
-│   │   └── security-protection.js    # Blocks access to sensitive files
+│   │   ├── security-protection.js    # Blocks access to sensitive files
+│   │   └── memory-auto-record.js     # Prompts agent to record learnings after tasks
 │   ├── skills/                 # On-demand knowledge modules (this directory)
 │   ├── tools/                  # Custom tools for agents
 │   └── commands/               # Reusable command templates
+│       ├── plan.md             # /plan — start a planning session
+│       ├── status.md           # /status — generate project status report
+│       ├── review.md           # /review — review changes against task criteria
+│       ├── memory-search.md    # /memory-search — search project memory
+│       └── handoff.md          # /handoff — generate structured handoff document
 ├── instructions/               # Standards and schemas (loaded via opencode.jsonc)
 │   ├── AGENTS.md               # Central agent system overview
 │   ├── AGENT_SCHEMA.md         # How to define new agents

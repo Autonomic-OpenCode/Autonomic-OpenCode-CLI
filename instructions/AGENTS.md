@@ -61,6 +61,7 @@ Commands are reusable prompt templates invoked via `/command-name` in the comman
 | `/status` | Generate a project status report — summarizes stories, tasks, and recent activity. |
 | `/review <task>` | Review changes against an AgentTask's success criteria — reports ✅/❌/⚠️ per criterion. |
 | `/memory-search <query>` | Search project memory by keyword — groups results by category. |
+| `/handoff` | Generate a structured handoff document — summarizes stories, tasks, recent activity, blockers, and next steps. |
 
 ## 6. File System Organization
 
