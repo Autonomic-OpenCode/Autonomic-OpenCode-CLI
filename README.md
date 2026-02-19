@@ -18,7 +18,7 @@ A quick-start toolkit for OpenCode with autonomous agents. It provides a multi-a
 ```
 .opencode/
 ├── agents/          # Agent definitions (ai-department, requirements-engineer, software-architect, developer, security-engineer, qa-engineer)
-├── plugins/         # Lifecycle hooks (security-protection, context-compaction, memory-auto-record)
+├── plugins/         # Lifecycle hooks (security-protection, context-compaction, memory-keeper)
 ├── skills/          # On-demand knowledge (project-standards, codebase-map, active-context, debugging-playbook)
 └── tools/           # Custom tools (memory-search, task-graph)
 

@@ -31,7 +31,7 @@ project-root/
 │   │   └── qa-engineer.md            # Subagent — quality assurance phase
 │   ├── plugins/                # OpenCode lifecycle plugins
 │   │   ├── security-protection.js    # Blocks access to sensitive files
-│   │   ├── memory-auto-record.js     # Prompts agent to record learnings after tasks
+│   │   ├── memory-keeper.js           # Automatically manages the Memory-Bank — bootstraps initial entries on first session, prompts memory updates on task completion
 │   │   └── context-compaction.js     # Compacts conversation context to stay within limits
 │   ├── skills/                 # On-demand knowledge modules (this directory)
 │   └── tools/                  # Custom tools for agents

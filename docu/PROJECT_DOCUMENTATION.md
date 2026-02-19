@@ -105,7 +105,7 @@ The `memory-search` tool searches the `memory/` knowledge base by keyword and ca
 |---|---|---|---|
 | **security-protection** | `.opencode/plugins/security-protection.js` | `tool.execute.before` | Blocks agent access to sensitive files (`.env`, `.pem`, `.pfx`, `id_rsa`) |
 | **context-compaction** | `.opencode/plugins/context-compaction.js` | `experimental.session.compacting` | Preserves active task and story context during session compaction |
-| **memory-auto-record** | `.opencode/plugins/memory-auto-record.js` | `experimental.session.compacting` | Detects completed tasks with no memory entry and reminds agents to record learnings |
+| **memory-keeper** | `.opencode/plugins/memory-keeper.js` | `event`, `tool.execute.after`, `experimental.chat.system.transform` | Automatically manages the Memory-Bank — bootstraps initial entries on first session, prompts memory updates on task completion |
 
 ---
 

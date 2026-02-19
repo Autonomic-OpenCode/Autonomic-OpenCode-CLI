@@ -11,7 +11,7 @@ import { join } from "node:path";
  * 2. Task Completion: Detects when a task in .local/agenttasks/ is marked
  *    as done and injects a prompt to update or create memory entries.
  *
- * Replaces memory-auto-record.js with proactive memory management.
+ * Proactive memory management for the agent workflow.
  *
  * Memory categories: Knowledge/, Pattern/, Learning/, Debugging/
  */

@@ -616,7 +616,7 @@ Agents get project knowledge through three complementary layers (documented in `
 
 - **security-protection.js** — Hooks into `tool.execute.before` to block agent access to sensitive files (`.env`, `.pem`, `.pfx`, `id_rsa`). Throws a `Security Violation` error if a match is found.
 - **context-compaction.js** — Hooks into `experimental.session.compacting` to preserve active task and story context during session compaction.
-- **memory-auto-record.js** — Hooks into `experimental.session.compacting` to detect completed tasks with no corresponding `memory/` entry and inject a reminder to record learnings.
+- **memory-keeper.js** — Automatically manages the Memory-Bank — bootstraps initial entries on first session, prompts memory updates on task completion.
 
 ### Tools
 
