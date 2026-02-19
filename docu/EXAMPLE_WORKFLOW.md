@@ -21,23 +21,17 @@ Here is the complete lifecycle, showing every component in action.
 
 ### Step 1: User Makes a Request
 
-The user opens OpenCode. The **AI Department** agent (defined in `.opencode/agents/ai-department.md`) is the primary agent — it's selected by default. The user types a command in the command palette:
+The user opens OpenCode. The **AI Department** agent (defined in `.opencode/agents/ai-department.md`) is the primary agent — it's selected by default. The user describes the request:
 
 ```
-/plan Add a REST API for user profile management with CRUD operations
+Add a REST API for user profile management with CRUD operations
 ```
 
-The `/plan` command is a template defined in `.opencode/commands/plan.md`. When invoked, OpenCode expands the template and passes the user's text as `$ARGUMENTS`. The expanded prompt instructs the agent to:
-
-1. Load skills `active-context` and `project-standards`
-2. Check `.local/stories/` for open stories
-3. Check `.local/agenttasks/` for existing tasks
-4. Assess scope and create work items
-5. Follow the Planning phase workflow from `instructions/AGENTS.md`
+The AI Department agent receives the request and follows the Context Engine Workflow from `instructions/AGENTS.md`:
 
 ### Step 2: AI Department Routes the Request
 
-The AI Department agent receives the expanded `/plan` prompt. Before delegating, it follows the Context Engine Workflow from `instructions/AGENTS.md`:
+Before delegating, it follows the Context Engine Workflow:
 
 **First, it searches memory for existing context:**
 
@@ -422,13 +416,13 @@ The QA Engineer verifies:
 
 ### Step 7: Review Phase
 
-The user runs the review command:
+The user asks the AI Department to review the task:
 
 ```
-/review TASK-003
+Review TASK-003 against its success criteria
 ```
 
-The `/review` command template (`.opencode/commands/review.md`) expands and instructs the agent to:
+The agent:
 
 1. Read the task file from `.local/agenttasks/task-003-implement-profile-controller.yaml`
 2. Load the `project-standards` skill
@@ -466,13 +460,13 @@ The `/review` command template (`.opencode/commands/review.md`) expands and inst
 
 #### Checking project status
 
-The user runs:
+The user asks:
 
 ```
-/status
+Give me a project status report
 ```
 
-The `/status` command template (`.opencode/commands/status.md`) instructs the agent to load the `active-context` skill, read all stories and tasks, check recent git activity, and present a structured report:
+The agent loads the `active-context` skill, reads all stories and tasks, checks recent git activity, and presents a structured report:
 
 ```
 ## Project Status Report
@@ -531,13 +525,7 @@ Total: 5 | ✅ 2 done | 🔄 1 in-progress | 🔒 0 blocked | ⏳ 2 ready | ❓ 
 
 #### Searching memory
 
-The user can search the knowledge base at any time using the `/memory-search` command:
-
-```
-/memory-search REST API patterns
-```
-
-The `/memory-search` command template (`.opencode/commands/memory-search.md`) invokes the `memory-search` tool and groups results by category:
+The user can search the knowledge base at any time. The agent uses the `memory-search` tool (`.opencode/tools/memory-search.js`) to find relevant entries:
 
 ```
 ## Memory Search Results: "REST API patterns"
@@ -560,13 +548,7 @@ The `/memory-search` command template (`.opencode/commands/memory-search.md`) in
 
 #### Generating a handoff document
 
-At the end of a session, the user runs:
-
-```
-/handoff
-```
-
-The `/handoff` command template (`.opencode/commands/handoff.md`) generates a structured handoff document for the next session or team member:
+At the end of a session, the user asks for a handoff summary. The agent generates a structured handoff document for the next session or team member:
 
 ```
 ## Handoff Document

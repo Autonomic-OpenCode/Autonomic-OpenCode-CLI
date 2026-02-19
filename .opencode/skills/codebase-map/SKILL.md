@@ -34,15 +34,9 @@ project-root/
 │   │   ├── memory-auto-record.js     # Prompts agent to record learnings after tasks
 │   │   └── context-compaction.js     # Compacts conversation context to stay within limits
 │   ├── skills/                 # On-demand knowledge modules (this directory)
-│   ├── tools/                  # Custom tools for agents
-│   │   ├── memory-search.js    # Search memory/ directory by keyword
-│   │   └── task-graph.js       # Visualize task status and dependencies
-│   └── commands/               # Reusable command templates
-│       ├── plan.md             # /plan — start a planning session
-│       ├── status.md           # /status — generate project status report
-│       ├── review.md           # /review — review changes against task criteria
-│       ├── memory-search.md    # /memory-search — search project memory
-│       └── handoff.md          # /handoff — generate structured handoff document
+│   └── tools/                  # Custom tools for agents
+│       ├── memory-search.js    # Search memory/ directory by keyword
+│       └── task-graph.js       # Visualize task status and dependencies
 ├── instructions/               # Standards and schemas (loaded via opencode.jsonc)
 │   ├── AGENTS.md               # Central agent system overview
 │   ├── AGENT_SCHEMA.md         # How to define new agents
@@ -101,7 +95,6 @@ Each phase requires user approval before proceeding (unless "don't stop" is spec
 | Plugins | `.opencode/plugins/` | JavaScript/TypeScript |
 | Skills | `.opencode/skills/<name>/` | `SKILL.md` with YAML frontmatter |
 | Custom tools | `.opencode/tools/` | JavaScript/TypeScript |
-| Commands | `.opencode/commands/` | Markdown templates |
 | Standards/schemas | `instructions/` | Markdown |
 | Architecture decisions | `memory/Knowledge/` | Markdown (ADR format) |
 | Code patterns | `memory/Pattern/` | Markdown |

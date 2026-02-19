@@ -19,7 +19,7 @@ Each specialist pauses and asks for your approval before the next one starts. Yo
 
 ### 1. You make a request
 
-Open OpenCode and talk to the AI Department agent. Describe what you need in plain language, or use a shortcut command (`/plan`, `/status`, `/review`).
+Open OpenCode and talk to the AI Department agent. Describe what you need in plain language.
 
 ### 2. Planning Phase → @requirements-engineer
 
@@ -115,18 +115,6 @@ The `memory-search` tool searches the `memory/` knowledge base by keyword and ca
 |---|---|---|
 | **memory-search** | `.opencode/tools/memory-search.js` | Searches `memory/` by keyword and optional category. Returns file paths and relevant snippets, scored by relevance. |
 | **task-graph** | `.opencode/tools/task-graph.js` | Visualizes task status and dependencies from `.local/agenttasks/` and `.local/stories/`. Shows story groupings and dependency chains. |
-
----
-
-## Commands
-
-| Command | What it does |
-|---|---|
-| `/plan <request>` | Start a planning session — loads context, checks existing work, creates tasks |
-| `/status` | Get a status report — open stories, tasks, recent commits, current phase |
-| `/review [task]` | Review a task — checks each success criterion as ✅/❌/⚠️ |
-| `/memory-search <query>` | Search the knowledge base by keyword |
-| `/handoff` | Generate a structured handoff document for transitioning between sessions or team members |
 
 ---
 

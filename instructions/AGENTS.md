@@ -51,19 +51,7 @@ Skills are on-demand instruction files loaded via the `skill` tool. Located in `
 | `active-context` | At the start of any planning or review session. Loads current work-in-progress state (active tasks, open stories, project phase). |
 | `debugging-playbook` | When encountering errors or investigating bugs. Loads troubleshooting guides, known issues, and lessons learned. |
 
-## 5. Available Commands
-
-Commands are reusable prompt templates invoked via `/command-name` in the command palette. Located in `.opencode/commands/`.
-
-| Command | Purpose |
-|---|---|
-| `/plan <request>` | Start a planning session — loads context, checks open stories/tasks, creates AgentTasks. |
-| `/status` | Generate a project status report — summarizes stories, tasks, and recent activity. |
-| `/review <task>` | Review changes against an AgentTask's success criteria — reports ✅/❌/⚠️ per criterion. |
-| `/memory-search <query>` | Search project memory by keyword — groups results by category. |
-| `/handoff` | Generate a structured handoff document — summarizes stories, tasks, recent activity, blockers, and next steps. |
-
-## 6. File System Organization
+## 5. File System Organization
 
 - **Source Code**: `src/` (Only Developer touches this).
 - **Documentation**: `docu/` (Project documentation).
@@ -74,9 +62,8 @@ Commands are reusable prompt templates invoked via `/command-name` in the comman
   - `plugins/` — Lifecycle hook plugins (JavaScript).
   - `skills/` — On-demand instruction files loaded via `skill` tool.
   - `tools/` — Custom tools extending agent capabilities.
-  - `commands/` — Reusable prompt templates for common workflows.
 
-## 7. Agent Phases & Gating
+## 6. Agent Phases & Gating
 - **Planning Phase**: `requirements-engineer.md` — elicits and structures requirements; creates Stories/AgentTasks. MUST stop and request user feedback before proceeding to Design.
 - **Design Phase**: `software-architect.md` — designs architecture and refines AgentTasks. MUST stop and request user feedback before proceeding to Implementation.
 - **Implementation Phase**: `developer.md` — implements code and tests per tasks and architecture. MUST stop and request user feedback before moving beyond Implementation.
