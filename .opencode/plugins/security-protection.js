@@ -28,6 +28,7 @@ export const SecurityProtection = async ({ project, client, $, directory, worktr
     "curl", "wget",
     "source", "tee",
     "dd", "tar", "zip", "gzip",
+    "python", "python3", "node", "ruby", "perl",
   ];
 
   // Tool name groups

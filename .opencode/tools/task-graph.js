@@ -99,7 +99,7 @@ export default tool({
 
     if (!taskFiles.length && !storyFiles.length) {
       return "No tasks or stories found.\n\nTo create tasks and stories:\n" +
-        "1. Use the /plan command to start a planning session\n" +
+        "1. Ask the Requirements Engineer agent to create a plan\n" +
         "2. Or create files manually:\n" +
         "   - Tasks: .local/agenttasks/task-001-description.yaml (see instructions/AGENT_TASK_SCHEMA.md)\n" +
         "   - Stories: .local/stories/story-001-description.md (see instructions/STORY_SCHEMA.md)\n\n" +
